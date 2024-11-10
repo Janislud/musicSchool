@@ -1,12 +1,21 @@
+// App.tsx
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Router and Route components
+import MainPage from './Pages/MainPage';
+import Header from './Pages/Header';
+import Footer from './Pages/Footer';
+import EnrollmentPage from './Components/EnrollmentPage';
 
 function App() {
   return (
-<div className="bg-blue-500 min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-white">
-        I pick react + tailwind.
-      </h1>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<MainPage />} />   {/* MainPage for the home route */}
+        <Route path="/enrollment" element={<EnrollmentPage />} />  {/* Enroll Now page */}
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
