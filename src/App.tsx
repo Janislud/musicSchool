@@ -12,7 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />   {/* MainPage for the home route */}
-        <Route path="/enrollment" element={<EnrollmentPage />} />  {/* Enroll Now page */}
+        <Route path="/enrollment" element={<EnrollmentPage />} />  {/* Page for form */}
       </Routes>
       <Footer />
     </Router>

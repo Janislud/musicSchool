@@ -1,4 +1,3 @@
-// Pages/EnrollmentPage.tsx
 import React from 'react';
 
 function EnrollmentPage() {
