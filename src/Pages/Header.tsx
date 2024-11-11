@@ -18,30 +18,27 @@ function Header() {
                 <span className="text-white text-xl font-bold">Music School</span>
             </div>
 
-         
             <nav className="hidden md:flex space-x-4">
                 <a href="/" className="text-white hover:text-gray-300">Home</a>
-                <a href="#about" className="text-white hover:text-gray-300">About</a>
-                <a href="#courses" className="text-white hover:text-gray-300">Courses</a>
+                <a href="/about" className="text-white hover:text-gray-300">About</a>
+                <a href="/courses" className="text-white hover:text-gray-300">Courses</a>
                 <Button variant="contained" className="bg-green-500 text-white hover:bg-green-600">
                     Sign Up
                 </Button>
             </nav>
 
-    
             <div className="md:hidden">
                 <button onClick={toggleMenu} aria-label="Toggle menu">
                     <MenuIcon className="text-white" />
                 </button>
             </div>
 
-       
             {isMenuOpen && (
                 <div className="md:hidden absolute top-16 left-0 w-full bg-blue-500">
                     <nav className="flex flex-col items-center space-y-4 py-4">
-                        <a href="#home" className="text-white hover:text-gray-300">Home</a>
-                        <a href="#about" className="text-white hover:text-gray-300">About</a>
-                        <a href="#courses" className="text-white hover:text-gray-300">Courses</a>
+                        <a href="/" className="text-white hover:text-gray-300">Home</a>
+                        <a href="/about" className="text-white hover:text-gray-300">About</a>
+                        <a href="/courses" className="text-white hover:text-gray-300">Courses</a>
                         <Button variant="contained" className="bg-green-500 text-white hover:bg-green-600">
                             Sign Up
                         </Button>
