@@ -52,7 +52,7 @@ function MainPage() {
         </p>
 
         <a
-          href="/enrollment"  
+          href="/enter-form"  
           className="inline-block px-6 py-3 mt-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
         >
           Enroll Now
