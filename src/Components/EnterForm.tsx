@@ -8,6 +8,19 @@ type Student = {
   instrument: string;
 };
 
+const initialStudents: Student[] = [
+  { name: "John", surname: "Doe", number: 1234567890, age: 12, instrument: "Piano" },
+  { name: "Jane", surname: "Smith", number: 1234567891, age: 14, instrument: "Violin" },
+  { name: "Sam", surname: "Brown", number: 1234567892, age: 10, instrument: "Flute" },
+  { name: "Emily", surname: "Davis", number: 1234567893, age: 13, instrument: "Guitar" },
+  { name: "Chris", surname: "Miller", number: 1234567894, age: 15, instrument: "Drums" },
+  { name: "Anna", surname: "Wilson", number: 1234567895, age: 11, instrument: "Clarinet" },
+  { name: "Tom", surname: "Taylor", number: 1234567896, age: 9, instrument: "Trumpet" },
+  { name: "Lucy", surname: "Anderson", number: 1234567897, age: 12, instrument: "Cello" },
+  { name: "Mike", surname: "Jackson", number: 1234567898, age: 14, instrument: "Saxophone" },
+  { name: "Sarah", surname: "White", number: 1234567899, age: 13, instrument: "Harp" },
+];
+
 function EnterForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -29,9 +42,8 @@ function EnterForm() {
 
   useEffect(() => {
     const storedStudents = localStorage.getItem('students');
-    if (storedStudents) {
-      setStudents(JSON.parse(storedStudents));
-    }
+    const parsedStudents = storedStudents ? JSON.parse(storedStudents) : [];
+    setStudents([...initialStudents, ...parsedStudents]);
   }, []);
 
 

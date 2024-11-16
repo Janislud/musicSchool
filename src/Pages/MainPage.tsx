@@ -24,7 +24,6 @@ function MainPage() {
         </p>
       </section>
 
-      
       <section className="py-8 px-4 max-w-3xl text-center bg-white mb-8 rounded-lg shadow-lg">
         <h2 className="text-3xl font-semibold text-black mb-4">About Our Teachers</h2>
         <p className="text-lg text-gray-700">

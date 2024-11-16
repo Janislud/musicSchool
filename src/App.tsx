@@ -8,6 +8,7 @@ import EnrollmentPage from './Components/EnrollmentPage';
 import EnterForm from './Components/EnterForm';
 import About from './Pages/About';
 import Courses from './Pages/Courses';
+import Singup from './Components/Signup';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/enter-form" element={<EnterForm/>}></Route>
         <Route path="/about" element={<About/>}></Route>
         <Route path="/courses" element={<Courses/>}></Route>
+        <Route path="/signup" element={<Singup/>}></Route>
       </Routes>
       <Footer />
     </Router>

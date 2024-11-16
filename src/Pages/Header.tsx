@@ -23,7 +23,7 @@ function Header() {
                 <a href="/about" className="text-white hover:text-gray-300">About</a>
                 <a href="/courses" className="text-white hover:text-gray-300">Courses</a>
                 <Button variant="contained" className="bg-green-500 text-white hover:bg-green-600">
-                    Sign Up
+                    <a href="/signup">Sign Up</a>
                 </Button>
             </nav>
 
@@ -39,8 +39,8 @@ function Header() {
                         <a href="/" className="text-white hover:text-gray-300">Home</a>
                         <a href="/about" className="text-white hover:text-gray-300">About</a>
                         <a href="/courses" className="text-white hover:text-gray-300">Courses</a>
-                        <Button variant="contained" className="bg-green-500 text-white hover:bg-green-600">
-                            Sign Up
+                        <Button  variant="contained" className="bg-green-500 text-white hover:bg-green-600">
+                            <a href="/signup">Sign Up</a>
                         </Button>
                     </nav>
                 </div>
