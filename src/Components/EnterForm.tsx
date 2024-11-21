@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
 type Student = {
   name: string;
@@ -9,18 +11,16 @@ type Student = {
   courseNumber: string;
 };
 
-// Define a type for the field names to avoid the "index signature" error
 type FormDataKeys = 'name' | 'surname' | 'birthday' | 'instrument' | 'courseNumber';
 
 const initialStudents: Student[] = [
-  { name: "John", surname: "Doe", birthday: "1997-11-12", age: 25, instrument: "Piano", courseNumber: "C001" },
-  { name: "Jane", surname: "Smith", birthday: "1998-06-24", age: 24, instrument: "Violin", courseNumber: "C002" },
-  { name: "Sam", surname: "Brown", birthday: "2001-03-15", age: 22, instrument: "Flute", courseNumber: "C003" },
-  { name: "Emily", surname: "Davis", birthday: "2003-11-22", age: 20, instrument: "Guitar", courseNumber: "C004" },
+  { name: "John", surname: "Doe", birthday: "1997.11.12", age: 25, instrument: "Piano", courseNumber: "C001" },
+  { name: "Jane", surname: "Smith", birthday: "1998.06.24", age: 24, instrument: "Violin", courseNumber: "C002" },
+  { name: "Sam", surname: "Brown", birthday: "2001.03.15", age: 22, instrument: "Flute", courseNumber: "C003" },
+  { name: "Emily", surname: "Davis", birthday: "2003.11.22", age: 20, instrument: "Guitar", courseNumber: "C004" },
 ];
 
 function EnterForm() {
-  // Ensure that formData and errors objects have a consistent type structure
   const [formData, setFormData] = useState<Record<FormDataKeys, string>>({
     name: '',
     surname: '',
@@ -99,8 +99,7 @@ function EnterForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate all fields before submitting
+  
     const newErrors: Record<FormDataKeys, string> = { ...errors };
     Object.keys(formData).forEach((key) => {
       const fieldKey = key as FormDataKeys;
@@ -111,26 +110,28 @@ function EnterForm() {
         newErrors[fieldKey] = '';
       }
     });
-
+  
     setErrors(newErrors);
-
+  
     if (Object.values(newErrors).some((error) => error !== '') || Object.values(formData).some((value) => value === '')) {
       return;
     }
-
+  
+    const formattedBirthday = formatBirthday(formData.birthday);
+  
     const newStudent: Student = {
       name: formData.name,
       surname: formData.surname,
-      birthday: formData.birthday,
+      birthday: formattedBirthday,
       age: calculateAge(formData.birthday),
       instrument: formData.instrument,
       courseNumber: formData.courseNumber,
     };
-
+  
     const updatedStudents = [...students, newStudent];
     setStudents(updatedStudents);
     localStorage.setItem('students', JSON.stringify(updatedStudents));
-
+  
     setFormData({
       name: '',
       surname: '',
@@ -146,6 +147,14 @@ function EnterForm() {
       courseNumber: '',
     });
   };
+  
+  const formatBirthday = (birthday: string): string => {
+    const date = new Date(birthday);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}.${month}.${year}`;
+  };
 
   const isFormValid =
     Object.values(errors).every((error) => error === '') &&
@@ -156,85 +165,95 @@ function EnterForm() {
       <h2 className="text-3xl font-semibold text-black mb-4">Enroll in Music School</h2>
       <p className="text-lg text-gray-700 mb-6">Fill out the form below to start your musical journey!</p>
 
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            required
-          />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-        </div>
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+  <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Enroll in Music School</h2>
+  
+  <div className="mb-6">
+    <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-300"
+      required
+    />
+    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+  </div>
 
-        <div className="mb-4">
-          <label htmlFor="surname" className="block text-gray-700 font-semibold mb-2">Surname</label>
-          <input
-            type="text"
-            id="surname"
-            name="surname"
-            value={formData.surname}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            required
-          />
-          {errors.surname && <p className="text-red-500 text-sm">{errors.surname}</p>}
-        </div>
+  <div className="mb-6">
+    <label htmlFor="surname" className="block text-gray-700 font-semibold mb-2">Surname</label>
+    <input
+      type="text"
+      id="surname"
+      name="surname"
+      value={formData.surname}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-300"
+      required
+    />
+    {errors.surname && <p className="text-red-500 text-sm mt-1">{errors.surname}</p>}
+  </div>
 
-        <div className="mb-4">
-          <label htmlFor="birthday" className="block text-gray-700 font-semibold mb-2">Birthday</label>
-          <input
-            type="date"
-            id="birthday"
-            name="birthday"
-            value={formData.birthday}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            required
-          />
-          {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday}</p>}
-        </div>
+  <div className="mb-6">
+    <label htmlFor="birthday" className="block text-gray-700 font-semibold mb-2">Birthday</label>
+    <TextField
+      type="text"
+      id="birthday"
+      name="birthday"
+      value={formData.birthday}
+      onChange={handleChange}
+      fullWidth
+      required
+      error={!!errors.birthday}
+      helperText={errors.birthday}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-300"
+    />
+  </div>
 
-        <div className="mb-4">
-          <label htmlFor="instrument" className="block text-gray-700 font-semibold mb-2">Instrument</label>
-          <input
-            type="text"
-            id="instrument"
-            name="instrument"
-            value={formData.instrument}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            required
-          />
-          {errors.instrument && <p className="text-red-500 text-sm">{errors.instrument}</p>}
-        </div>
+  <div className="mb-6">
+    <label htmlFor="instrument" className="block text-gray-700 font-semibold mb-2">Instrument</label>
+    <input
+      type="text"
+      id="instrument"
+      name="instrument"
+      value={formData.instrument}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-300"
+      required
+    />
+    {errors.instrument && <p className="text-red-500 text-sm mt-1">{errors.instrument}</p>}
+  </div>
 
-        <div className="mb-4">
-          <label htmlFor="courseNumber" className="block text-gray-700 font-semibold mb-2">Course Number</label>
-          <input
-            type="text"
-            id="courseNumber"
-            name="courseNumber"
-            value={formData.courseNumber}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            required
-          />
-          {errors.courseNumber && <p className="text-red-500 text-sm">{errors.courseNumber}</p>}
-        </div>
+  <div className="mb-6">
+    <label htmlFor="courseNumber" className="block text-gray-700 font-semibold mb-2">Course Number</label>
+    <input
+      type="text"
+      id="courseNumber"
+      name="courseNumber"
+      value={formData.courseNumber}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-300"
+      required
+    />
+    {errors.courseNumber && <p className="text-red-500 text-sm mt-1">{errors.courseNumber}</p>}
+  </div>
 
-        <button
-          type="submit"
-          className="bg-indigo-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-600"
-          disabled={!isFormValid}
-        >
-          Submit
-        </button>
-      </form>
+  <Button
+    type="submit"
+    variant="contained"
+    color="primary"
+    fullWidth
+    disabled={!isFormValid}
+    className="mt-4 py-3 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50"
+  >
+    Submit
+  </Button>
+</form>
 
       <div className="mt-8">
         <h3 className="text-2xl font-semibold text-black mb-4">Enrolled Students</h3>
